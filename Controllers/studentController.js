@@ -21,7 +21,7 @@ export function getStudent(req,res){
         Student.save().then(()=>{
         
             res.json({
-                message:"Student Created"
+                message:"Student Created successfully"
             })
         
         
