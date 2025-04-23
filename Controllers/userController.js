@@ -78,7 +78,7 @@ User.find({email: req.body.email}).then(
         }else{
 
             res.json({
-                message:"User not logged in(wrong password) "
+                message:"User not logged in(wrong prd) "
     
                 })
 
