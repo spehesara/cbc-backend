@@ -6,11 +6,13 @@ import studentRouter from './routes/studentRouter.js';
 import productRouter from './routes/productsRouter.js';
 import userRouter from './routes/userRouter.js';
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 
 const app = express();
 //Database eka connect karana part eka//
-const MongoUrl ="mongodb+srv://spehesara:123@cluster0.ev9lu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const MongoUrl =process.env.MONGO_DB_URL
 
 mongoose.connect(MongoUrl,{})
 const connection = mongoose.connection
