@@ -35,7 +35,7 @@ console.log(token)
 
 if(token != null){
 
-jwt.verify(token, process.env.SECRET02 , (error,decoded)=>{
+jwt.verify(token, process.env.SECRET03 , (error,decoded)=>{
 
 
 if(!error){
