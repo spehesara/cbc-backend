@@ -75,7 +75,7 @@ product.deleteOne({Name: req.params.Name}).then(
    ()=>{
 
 res.json({
-message:"Product Delete sucessfully"
+message:"Product Deleted sucessfully"
 
 })
 
