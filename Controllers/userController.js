@@ -1,6 +1,8 @@
 import User from "../models/User.js"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"; 
+import dotenv from "dotenv";
+dotenv.config()
 
 export function createUser(req,res){
 
@@ -91,7 +93,7 @@ User.find({email: req.body.email}).then(
 
 
 
-            },"cbc_secret_key_9773")
+            },process.env.SECRET01)
             console.log(token)
 
             res.json({
