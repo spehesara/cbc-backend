@@ -30,9 +30,6 @@ res.json({
 return
 }
 }
-
-
-
     newUserData.password = bcrypt.hashSync(newUserData.password,10)
     
 
