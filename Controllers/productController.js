@@ -1,115 +1,44 @@
-import product from "../models/Product.js";
+import Product from "../models/product.js";
+import { isAdmin } from "./userController.js";
 
-//Get Product//
-export async function getProduct(req,res){
+export function createProduct(req, res) {
 
-    try{
-          const productList = await product.find()
-
-res.json({
-
-list: productList
-
-})
-
-
-    }catch(e){
-res.json({
-
-message:"Error"
-
-})
-
-    }
-
-  
-
-}
-
-//Create Product//
-
-export function createProduct(req,res){
-
-    console.log(req.user)
-    if(req.user == null){
+    if (!isAdmin(req)) {
 
         res.json({
-        message:"You are not logged in"
+            message: "Please login as a administrator to add products "
 
         })
         return
+
     }
 
-    if(req.user.type != "admin"){
+    const newProductData = req.body
+
+    const product = new Product(newProductData)
+
+    product.save().then(() => {
 
         res.json({
-message:"You are not a administrator"
-
+            message: "Product Created "
         })
-        return
-    }
 
-    const Product = new product(req.body)
-    Product.save().then(()=>{
-
-res.json({
-message: "Product Created"
-
-})
-
-    }).catch(()=>{
-
-message:"Product is not Created "
-
-
-    })
-
- 
-}
-
-//delete Product//
-
-export function deleteProduct(req,res){
-product.deleteOne({Name: req.params.Name}).then(
-
-   ()=>{
-
-res.json({
-message:"Product Deleted sucessfully"
-
-})
-
-   } 
-)
-}
-
-export function getProductByName(req,res){
-
-const name = req.params.name;
-
-product.find({Name : name}).then(
-    (productList)=>{
-
-       if(productList.length ==0){
-      res.json({
-        message: "Product not found"
-      })
-
-       }else{
-
+    }).catch((error) => {
 
         res.json({
-            list : productList
+            message: error
         })
-       }
-
-
-
-
-    }
-).catch(()=>{
-    res.json({
-        message: "Product Not Found"
     })
-})
+
+
+}
+
+
+export function getProduct(req, res) {
+
+    Product.find({}).then((products) => {
+
+        res.json(products)
+    })
+
 }
