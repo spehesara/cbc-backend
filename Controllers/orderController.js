@@ -1,4 +1,5 @@
 import Order from "../models/Order.js";
+import Product from "../models/product.js";
 import { isCustomer } from "./userController.js";
 
 
@@ -22,11 +23,11 @@ export async function createOrders(req, res) {
         } else {
             const currentOrderId = latestOrder[0].
                 orderId
-            const numberString  = currentOrderId.replace("CBC", "")   
+            const numberString = currentOrderId.replace("CBC", "")
 
             const number = parseInt(numberString)
 
-            
+
 
             const newNumber = (number + 1).toString
                 ().padStart(4, "0");
@@ -36,17 +37,31 @@ export async function createOrders(req, res) {
         }
 
         const newOrderData = req.body
-        newOrderData.orderId = orderId
-        newOrderData.email = req.user.email
 
-        const order = new Order(newOrderData)
+        const newProductArray = []
 
-        await order.save()
+        for (let i = 0; i < newOrderData.orderedItems.length; i++) {
 
-        res.json({
-meesage: "Order Created"
+            const product = await Product.findOne({
+                productId: newOrderData.orderedItems[i].productId
+            })
 
-        })
+            console.log(product)
+
+        }
+
+        //         const newOrderData = req.body
+        //         newOrderData.orderId = orderId
+        //         newOrderData.email = req.user.email
+
+        //         const order = new Order(newOrderData)
+
+        //         await order.save()
+
+        //         res.json({
+        // meesage: "Order Created"
+
+        //         })
 
 
     } catch (error) {
@@ -57,22 +72,22 @@ meesage: "Order Created"
     }
 
 
-}  
+}
 
-export async function getOrders(req,res) {
+export async function getOrders(req, res) {
 
-    try{
+    try {
 
-        const orders = await Order.find({email :req.user.email})
+        const orders = await Order.find({ email: req.user.email })
 
         res.json(orders)
-    }catch(error){
+    } catch (error) {
 
-res.status(500).json({
-    message: error.message
-})
+        res.status(500).json({
+            message: error.message
+        })
 
     }
 
-    
+
 }
