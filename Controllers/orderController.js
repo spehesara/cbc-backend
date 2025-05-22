@@ -40,7 +40,7 @@ export async function createOrders(req, res) {
 
         const newProductArray = []
 
-        for (let i = 0; i < newOrderData.orderedItems.length; i++) {
+        for (let i=0; i<newOrderData.orderedItems.length; i++) {
 
             const product = await Product.findOne({
                 productId: newOrderData.orderedItems[i].productId
@@ -48,7 +48,32 @@ export async function createOrders(req, res) {
 
             console.log(product)
 
+            if (product == null) {
+                res.json({
+                    message: "Product with id " + newOrderData.orderedItems[i].productId + " not found"
+                })
+
+                return
+
+            }
+
+            newProductArray[i] = {
+
+                productId: product.productId,
+                price: product.price,
+                quantity: newOrderData.
+                    orderedItems[i].quantity,
+                image: product.image[0]
+
+            }
+
+        
         }
+
+        console.log(newProductArray)
+
+         
+         
 
         //         const newOrderData = req.body
         //         newOrderData.orderId = orderId
@@ -74,7 +99,7 @@ export async function createOrders(req, res) {
 
 }
 
-export async function getOrders(req, res) {
+export async function getOrders(req,res) {
 
     try {
 
