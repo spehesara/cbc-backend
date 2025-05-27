@@ -53,7 +53,6 @@ export async function createOrders(req, res) {
 
         const newOrderData = req.body
 
-<<<<<<< HEAD
 
         const newProductArray= []
 
