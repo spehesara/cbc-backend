@@ -1,4 +1,4 @@
-import Product from "../models/Order.js";
+import Order from "../models/Order.js";
 import { isCustomer } from "./userController.js";
 
 export async function createOrder(req, res) {
