@@ -10,53 +10,53 @@ dotenv.config();
 
 const app = express();
 //Database eka connect karana part eka//
-const MongoUrl =process.env.MONGO_DB_URL
+const MongoUrl = process.env.MONGO_DB_URL
 
-mongoose.connect(MongoUrl,{})
+mongoose.connect(MongoUrl, {})
 const connection = mongoose.connection
 
-connection.once("open",()=>{
+connection.once("open", () => {
   console.log("DataBase Connected")
 
-  
-  })
+
+})
 
 app.use(bodyParser.json())
 
 app.use(
 
-(req,res,next)=>{
+  (req, res, next) => {
 
-const token = req.header("Authorization")?.replace("Bearer ","")
+    const token = req.header("Authorization")?.replace("Bearer ", "")
 
-console.log(token)
+    console.log(token)
 
-if(token != null){
+    if (token != null) {
 
-jwt.verify(token, process.env.SECRET , (error,decoded)=>{
-
-
-if(!error){
-
-// console.log(decoded)
-req.user = decoded
-
-}
+      jwt.verify(token, process.env.SECRET, (error, decoded) => {
 
 
-})
+        if (!error) {
 
-}
+          // console.log(decoded)
+          req.user = decoded
 
-next()
-})
+        }
 
 
+      })
+
+    }
+
+    next()
+  })
 
 
 
-app.use("/api/users",userRouter)
-app.use("/api/products",productRouter)
+
+
+app.use("/api/users", userRouter)
+app.use("/api/products", productRouter)
 
 
 
@@ -64,9 +64,9 @@ app.use("/api/products",productRouter)
 
 app.listen(
 
-    5000,
-    ()=>{
-        console.log('server is runing on port:5000');
-    }
+  5000,
+  () => {
+    console.log('server is runing on port:5000');
+  }
 
 )
