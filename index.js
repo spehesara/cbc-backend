@@ -8,7 +8,6 @@ import dotenv from "dotenv";
 import productRouter from './routes/productRouter.js';
 dotenv.config();
 
-
 const app = express();
 //Database eka connect karana part eka//
 const MongoUrl =process.env.MONGO_DB_URL
