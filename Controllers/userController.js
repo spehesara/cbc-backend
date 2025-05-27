@@ -153,3 +153,21 @@ return true
 
 
 }
+
+// Admin 
+
+// {
+//   "email": "Sithump.doe@example.com",
+ 
+//   "password": "Securepassword123"
+// }
+
+
+// Customer 
+
+// {
+
+// "email": "sithumPehesara@example.com",
+//   "password": "Securepassword1234"
+
+// }
