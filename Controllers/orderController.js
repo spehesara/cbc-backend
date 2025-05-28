@@ -33,7 +33,7 @@ export async function createOrder(req, res) {
     const newProductArray = [];
 
     for (let i = 0; i < newOrderData.orderedItems.length; i++) {
-      const product = await product.findOne({
+      const product = await Product.findOne({
         productId: newOrderData.orderedItems[i].productId,
       });
 
