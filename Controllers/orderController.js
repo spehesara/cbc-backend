@@ -32,43 +32,49 @@ export async function createOrder(req, res) {
 
     const newProductArray = [];
 
-    for (let i = 0; i < newOrderData.orderedItems.length; i++) {
-      const product = await Product.findOne({
-        productId: newOrderData.orderedItems[i].productId,
-      });
 
-      if (product == null) {
-        res.json({
-          message:
-            "Product with id " +
-            newOrderData.orderedItems[i].productId +
-            " not found",
-        });
-        return;
-      }
+    for(let i=0; newOrderData.orderedItems.length;i++){
+console.log(newOrderData.orderedItems[i])
 
-      newProductArray[i] = {
-        name: product.productName,
-        price: product.lastPrice,
-        quantity: newOrderData.orderedItems[i].qty,
-        image: product.images[0],
-      };
     }
-    console.log(newProductArray);
 
-    newOrderData.orderedItems = newProductArray;
+    // for (let i = 0; i < newOrderData.orderedItems.length; i++) {
+    //   const product = await Product.findOne({
+    //     productId: newOrderData.orderedItems[i].productId,
+    //   });
 
-    newOrderData.orderId = orderId;
-    newOrderData.email = req.user.email;
+    //   if (product == null) {
+    //     res.json({
+    //       message:
+    //         "Product with id " +
+    //         newOrderData.orderedItems[i].productId +
+    //         " not found",
+    //     });
+    //     return;
+    //   }
 
-    const order = new Order(newOrderData);
+    //   newProductArray[i] = {
+    //     name: product.productName,
+    //     price: product.lastPrice,
+    //     quantity: newOrderData.orderedItems[i].qty,
+    //     image: product.images[0],
+    //   };
+    // }
+    // console.log(newProductArray);
 
-    const savedOrder = await order.save();
+    // newOrderData.orderedItems = newProductArray;
 
-    res.json({
-      message: "Order created",
-      order : savedOrder
-    });
+    // newOrderData.orderId = orderId;
+    // newOrderData.email = req.user.email;
+
+    // const order = new Order(newOrderData);
+
+    // const savedOrder = await order.save();
+
+    // res.json({
+    //   message: "Order created",
+    //   order : savedOrder
+    // });
 
     
   } catch (error) {
