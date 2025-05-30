@@ -33,8 +33,9 @@ export async function createOrder(req, res) {
     const newProductArray = [];
 
 
-    for(let i=0; newOrderData.orderedItems.length;i++){
-console.log(newOrderData.orderedItems[i])
+    for (let i = 0; newOrderData.orderedItems.length; i++) {
+
+      console.log(newOrderData.orderedItems[i])
 
     }
 
@@ -76,10 +77,10 @@ console.log(newOrderData.orderedItems[i])
     //   order : savedOrder
     // });
 
-    
+
   } catch (error) {
     res.status(500).json({
-      message: error.message,
+      message: error.message
     });
   }
 }
