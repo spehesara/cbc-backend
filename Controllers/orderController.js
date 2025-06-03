@@ -1,4 +1,5 @@
 import Order from "../models/Order.js";
+import Product from "../models/Product.js";
 import { isCustomer } from "./userController.js";
 
 export async function createOrder(req, res) {
@@ -33,11 +34,47 @@ export async function createOrder(req, res) {
     const newProductArray = [];
 
 
-    for (let i = 0; newOrderData.orderedItems.length; i++) {
+    for (let i = 0; i < newOrderData.orderedItems.length; i++) {
 
-      console.log(newOrderData.orderedItems[i])
+      const product = await Product.findOne({
+
+        productId: newOrderData.orderedItems[i].productId
+      })
+
+      if (product == null) {
+        res.json({
+          message: "Product with id " + newOrderData.orderedItems[i].productId + " not found"
+        })
+
+        return
+
+      }
+      newProductArray[i] = {
+        name: product.productName,
+        price: product.lastPrice,
+        quantity: newOrderData.orderedItems[i].quantity,
+        image: product.images[0],
+      };
 
     }
+
+    console.log(newProductArray);
+
+    newOrderData.orderedItems = newProductArray
+
+    newOrderData.orderId = orderId;
+    newOrderData.email = req.user.email;
+
+    const order = new Order(newOrderData)
+    await order.save();
+
+
+
+    res.json({
+      message: "Order Created"
+
+    });
+    
 
     // for (let i = 0; i < newOrderData.orderedItems.length; i++) {
     //   const product = await Product.findOne({
@@ -54,14 +91,7 @@ export async function createOrder(req, res) {
     //     return;
     //   }
 
-    //   newProductArray[i] = {
-    //     name: product.productName,
-    //     price: product.lastPrice,
-    //     quantity: newOrderData.orderedItems[i].qty,
-    //     image: product.images[0],
-    //   };
-    // }
-    // console.log(newProductArray);
+
 
     // newOrderData.orderedItems = newProductArray;
 
