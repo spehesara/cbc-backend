@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const userSchema =  mongoose.Schema({
 
- email :{
+email :{
 
     type:String,
     required : true,
