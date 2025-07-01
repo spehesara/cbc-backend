@@ -91,19 +91,27 @@ User.find({email: req.body.email}).then(
 
 
 
-            },"cbc_secret_key_9773")
+            },process.env.SECRET01)
             console.log(token)
 
             res.json({
                 message:"User logged in",
-                token: token
+                token: token,
+                user:{
 
+                firstName : user.firstName,
+                lastName : user.lastName,
+                type : user.type,
+                profilePicture : user.profilePicture,
+                email : user.email
+
+                }
             })
 
         }else{
 
             res.json({
-                message:"User not logged in(wrong prd) "
+                message:"User not logged in(wrong password) "
     
                 })
 

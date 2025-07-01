@@ -4,8 +4,7 @@ import { isAdmin } from "./userController.js";
 export function createProduct(req, res) {
 
     if (!isAdmin(req)) {
-
-        res.json({
+        res.status(401).json({
             message: "Please login as a administrator to add products "
 
         })
@@ -19,13 +18,13 @@ export function createProduct(req, res) {
 
     product.save().then(() => {
 
-        res.json({
+        res.status(200).json({
             message: "Product Created "
         })
 
     }).catch((error) => {
 
-        res.json({
+        res.status(500).json({
             message: error
         })
     })
@@ -39,6 +38,48 @@ export function getProduct(req, res) {
     Product.find({}).then((products) => {
 
         res.json(products)
+    })
+
+}
+
+export function deleteProduct(req, res) {
+
+
+
+    if (!isAdmin(req)) {
+        res.status(403).json({
+
+            message: ("Please login as a administartor to delete products ")
+           
+        })
+
+        return
+
+    }
+
+    const productId = req.params.productId
+
+    Product.deleteOne({
+        productId: productId
+    }
+
+    ).then(()=> {
+
+        res.json({
+            message: "Product Deleted"
+
+        })
+        
+        }).catch((error) => {
+       
+               console.log("Error deleting product:", error);
+            res.status(403).json({
+    
+                
+                message: error
+               
+            })
+
     })
 
 }

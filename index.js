@@ -1,17 +1,19 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-
 import userRouter from './routes/userRouter.js';
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import productRouter from './routes/productRouter.js';
 import orderRouter from './routes/orderRouter.js';
 dotenv.config();
+import cors from "cors";
 
 const app = express();
 //Database eka connect karana part eka//
 const MongoUrl = process.env.MONGO_DB_URL
+
+app.use(cors());
 
 mongoose.connect(MongoUrl, {})
 const connection = mongoose.connection
@@ -34,7 +36,7 @@ app.use(
 
     if (token != null) {
 
-      jwt.verify(token, process.env.SECRET, (error, decoded) => {
+      jwt.verify(token, process.env.SECRET01, (error, decoded) => {
 
 
         if (!error) {
