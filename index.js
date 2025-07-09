@@ -1,8 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-const cors = require('cors');
-
 
 import userRouter from './routes/userRouter.js';
 import jwt from "jsonwebtoken";
@@ -15,14 +13,7 @@ const app = express();
 //Database eka connect karana part eka//
 const MongoUrl = process.env.MONGO_DB_URL
 
-app.use(cors(
-  {
- origin: 'https://cbc-frontend-six.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}
-
-));
+app.use(cors());
 
 mongoose.connect(MongoUrl, {})
 const connection = mongoose.connection
