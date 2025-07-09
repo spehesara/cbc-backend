@@ -6,8 +6,9 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import productRouter from './routes/productRouter.js';
 import orderRouter from './routes/orderRouter.js';
-dotenv.config();
 import cors from "cors";
+dotenv.config();
+
 
 const app = express();
 //Database eka connect karana part eka//
