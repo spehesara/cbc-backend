@@ -1,5 +1,6 @@
 
-import Product from "../models/product.js";
+
+import Product from "../models/Product.js";
 import { isAdmin } from "./userController.js";
 
 export function createProduct(req, res) {
@@ -15,7 +16,7 @@ export function createProduct(req, res) {
 
     const newProductData = req.body
 
-    const product = new Productroduct(newProductData)
+    const product = new Product(newProductData)
 
     product.save().then(() => {
 
