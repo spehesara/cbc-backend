@@ -13,7 +13,14 @@ const app = express();
 //Database eka connect karana part eka//
 const MongoUrl = process.env.MONGO_DB_URL
 
-app.use(cors());
+app.use(cors(
+  {
+ origin: 'https://cbc-frontend-six.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}
+
+));
 
 mongoose.connect(MongoUrl, {})
 const connection = mongoose.connection
