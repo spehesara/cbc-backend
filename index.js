@@ -1,6 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+const cors = require('cors');
+const express = require('express');
 
 import userRouter from './routes/userRouter.js';
 import jwt from "jsonwebtoken";
