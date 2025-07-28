@@ -51,7 +51,7 @@ export function deleteProduct(req, res) {
         res.status(403).json({
 
             message: ("Please login as a administartor to delete products ")
-           
+
         })
 
         return
@@ -64,32 +64,32 @@ export function deleteProduct(req, res) {
         productId: productId
     }
 
-    ).then(()=> {
+    ).then(() => {
 
         res.json({
             message: "Product Deleted"
 
         })
-        
-        }).catch((error) => {
-       
-               console.log("Error deleting product:", error);
-            res.status(403).json({
-    
-                
-                message: error
-               
-            })
+
+    }).catch((error) => {
+
+        console.log("Error deleting product:", error);
+        res.status(403).json({
+
+
+            message: error
+
+        })
 
     })
 
 }
 
 
-export function updateProduct(req,res){
+export function updateProduct(req, res) {
 
 
- if (!isAdmin(req)) {
+    if (!isAdmin(req)) {
         res.status(401).json({
             message: "Please login as a administrator to add products "
 
@@ -98,33 +98,33 @@ export function updateProduct(req,res){
 
     }
 
-const productId = req.params.productId
-const newProductData = req.body
+    const productId = req.params.productId
+    const newProductData = req.body
 
-Product.updateOne(
- {productId:productId},
- newProductData
+    Product.updateOne(
+        { productId: productId },
+        newProductData
 
 
 
-).then(()=>{
+    ).then(() => {
 
-    res.json({
-message:"Product updated"
+        res.json({
+            message: "Product updated"
+
+        })
+
+
+    }).catch((error) => {
+        console.log(error)
+        res.status(404).json({
+
+
+            message: error
+
+        })
 
     })
-
-
-}).catch((error)=>{
- console.log(error)
-res.status(404).json({
-    
-   
-    message: error
-
-})
-
-})
 
 
 
@@ -143,6 +143,24 @@ export default async function getProductById(req, res) {
         if (!product) {
             return res.status(404).json({ error: "Product not found" });
         }
+
+
+}
+
+export default async function getProductById(req, res) {
+    try {
+        const { productId } = req.params;
+
+        if (!productId) {
+            return res.status(400).json({ error: "Product ID is required" });
+        }
+
+        const product = await Product.findOne({ productId });
+
+        if (!product) {
+            return res.status(404).json({ error: "Product not found" });
+        }
+
 
         res.status(200).json(product);
     } catch (error) {
