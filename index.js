@@ -16,14 +16,16 @@ const MongoUrl = process.env.MONGO_DB_URL
 
 app.use(cors());
 
-mongoose.connect(MongoUrl, {})
+mongoose.connect(MongoUrl)
 const connection = mongoose.connection
 
 connection.once("open", () => {
   console.log("DataBase Connected")
-
-
 })
+
+connection.on("error", (err) => {
+  console.error("Database connection error:", err);
+});
 
 app.use(bodyParser.json())
 
