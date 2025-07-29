@@ -133,24 +133,6 @@ export function updateProduct(req, res) {
 export default async function getProductById(req, res) {
     try {
         const { productId } = req.params;
-
-        if (!productId) {
-            return res.status(400).json({ error: "Product ID is required" });
-        }
-
-        const product = await Product.findOne({ productId });
-
-        if (!product) {
-            return res.status(404).json({ error: "Product not found" });
-        }
-
-
-}
-
-export default async function getProductById(req, res) {
-    try {
-        const { productId } = req.params;
-
         if (!productId) {
             return res.status(400).json({ error: "Product ID is required" });
         }
