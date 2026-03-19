@@ -42,17 +42,19 @@ lastPrice:{
 type:Number,
 required: true 
 
+
+},
+
+
+stock:{
+type:Number,
+requuired:true
+
 },
 
 description:{
 type:String,
 required:true
-
-},
-
-stock:{
-type:Number,
-requuired:true
 
 }
 
